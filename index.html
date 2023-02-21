@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/Polgonsindustrials_0.js"></script>
+        <script src="data/Parades_bus_RdC_1.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:false, maxZoom:28, minZoom:1
+        }).fitBounds([[41.506096100408996,2.040029770537997],[41.638456149880255,2.300518590135855]]);
+var pnoa = L.tileLayer.wms("http://www.ign.es/wms-inspire/pnoa-ma?SERVICE=WMS&", {
+	   layers: "OI.OrthoimageCoverage",//nombre de la capa (ver get capabilities)
+	   format: 'image/jpeg',
+	   transparent: true,
+	   version: '1.3.0',//wms version (ver get capabilities)
+	   attribution: "PNOA WMS. Cedido por © Instituto Geográfico Nacional de España"
+	}).addTo(map);var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        function pop_Polgonsindustrials_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Poligon</th>\
+                        <td>' + (feature.properties['Poligon'] !== null ? autolinker.link(feature.properties['Poligon'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Polgonsindustrials_0_0() {
+            return {
+                pane: 'pane_Polgonsindustrials_0',
+                opacity: 1,
+                color: 'rgba(255,158,23,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 3.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,158,23,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Polgonsindustrials_0');
+        map.getPane('pane_Polgonsindustrials_0').style.zIndex = 400;
+        map.getPane('pane_Polgonsindustrials_0').style['mix-blend-mode'] = 'normal';
+        var layer_Polgonsindustrials_0 = new L.geoJson(json_Polgonsindustrials_0, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Polgonsindustrials_0',
+            layerName: 'layer_Polgonsindustrials_0',
+            pane: 'pane_Polgonsindustrials_0',
+            onEachFeature: pop_Polgonsindustrials_0,
+            style: style_Polgonsindustrials_0_0,
+        });
+        bounds_group.addLayer(layer_Polgonsindustrials_0);
+        map.addLayer(layer_Polgonsindustrials_0);
+        function pop_Parades_bus_RdC_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Parada</th>\
+                        <td>' + (feature.properties['Parada'] !== null ? autolinker.link(feature.properties['Parada'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Parades_bus_RdC_1_0() {
+            return {
+                pane: 'pane_Parades_bus_RdC_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/aiga_bus_bg.svg',
+            iconSize: [15.200000000000006, 15.200000000000006]
+        }),
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Parades_bus_RdC_1');
+        map.getPane('pane_Parades_bus_RdC_1').style.zIndex = 401;
+        map.getPane('pane_Parades_bus_RdC_1').style['mix-blend-mode'] = 'normal';
+        var layer_Parades_bus_RdC_1 = new L.geoJson(json_Parades_bus_RdC_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Parades_bus_RdC_1',
+            layerName: 'layer_Parades_bus_RdC_1',
+            pane: 'pane_Parades_bus_RdC_1',
+            onEachFeature: pop_Parades_bus_RdC_1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Parades_bus_RdC_1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Parades_bus_RdC_1);
+        map.addLayer(layer_Parades_bus_RdC_1);
+        setBounds();
+        </script>
+    </body>
+</html>
